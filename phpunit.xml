@@ -1,0 +1,16 @@
+<phpunit colors="true" forceCoversAnnotation="true" strict="true">
+    <testsuites>
+        <testsuite name="Chadicus Filter Test Suite">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="coverage" charset="UTF-8" highlight="false" lowUpperBound="100" highLowerBound="100"/>
+        <log type="coverage-clover" target="clover.xml"/>
+    </logging>
+</phpunit>
