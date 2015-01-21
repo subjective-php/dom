@@ -2,22 +2,28 @@
 
 namespace Chadicus;
 
+use DOMAttr;
+use DOMDocument;
+use DOMException;
+use DOMText;
+use DOMXPath;
+
 /**
  * Static helper class for working with DOM objects.
  */
 class DOMUtil
 {
     /**
-     * Coverts the given array to a \DOMDocument.
+     * Coverts the given array to a DOMDocument.
      *
      * @param array $array The array to covert.
      *
-     * @return \DOMDocument
+     * @return DOMDocument
      */
     public static function fromArray(array $array)
     {
         $flattened = self::flatten($array);
-        $document = new \DOMDocument();
+        $document = new DOMDocument();
         foreach (self::flatten($array) as $path => $value) {
             self::addXPath($document, $path, $value);
         }
@@ -26,22 +32,22 @@ class DOMUtil
     }
 
     /**
-     * Converts the given \DOMDocument to an array.
+     * Converts the given DOMDocument to an array.
      *
-     * @param \DOMDocument $document The document to convert.
+     * @param DOMDocument $document The document to convert.
      *
      * @return array
      */
-    public static function toArray(\DOMDocument $document)
+    public static function toArray(DOMDocument $document)
     {
         $result = array();
-        $domXPath = new \DOMXPath($document);
+        $domXPath = new DOMXPath($document);
         foreach ($domXPath->query('//* | //@*') as $node) {
             $xpath = trim($node->getNodePath(), '/');
             $xpath = str_replace('[', '/', $xpath);
             $xpath = str_replace(']', '', $xpath);
             $value = null;
-            if ($node->childNodes->length === 1 && $node->childNodes->item(0) instanceof \DOMText) {
+            if ($node->childNodes->length === 1 && $node->childNodes->item(0) instanceof DOMText) {
                 $value = $node->childNodes->item(0)->nodeValue;
             }
 
@@ -52,23 +58,23 @@ class DOMUtil
     }
 
     /**
-     * Helper method to add a new \DOMNode to the given document with the given value.
+     * Helper method to add a new DOMNode to the given document with the given value.
      *
-     * @param \DOMDocument $document The document to which the node will be added.
+     * @param DOMDocument $document The document to which the node will be added.
      * @param string       $xpath    A valid xpath destination of the new node.
      * @param mixed        $value    The value for the new node.
      *
      * @return void
      *
-     * @throws \DOMException Thrown if the given $xpath is not valid.
+     * @throws DOMException Thrown if the given $xpath is not valid.
      */
-    private static function addXPath(\DOMDocument $document, $xpath, $value = null)
+    private static function addXPath(DOMDocument $document, $xpath, $value = null)
     {
         $pointer = $document;
-        $domXPath = new \DOMXPath($document);
+        $domXPath = new DOMXPath($document);
 
         if (@$domXPath->evaluate($xpath) === false) {
-            throw new \DOMException("XPath {$xpath} is not valid.");
+            throw new DOMException("XPath {$xpath} is not valid.");
         }
 
         $xpaths = array_filter(explode('/', $xpath));
@@ -101,7 +107,7 @@ class DOMUtil
             $pointer = $list->item($count -1);
         }
 
-        if ($pointer instanceof \DOMAttr) {
+        if ($pointer instanceof DOMAttr) {
             $pointer->value = $value;
             return;
         }
