@@ -22,7 +22,6 @@ final class DOMUtil
      */
     public static function fromArray(array $array)
     {
-        $flattened = self::flatten($array);
         $document = new DOMDocument();
         foreach (self::flatten($array) as $path => $value) {
             self::addXPath($document, $path, $value);
