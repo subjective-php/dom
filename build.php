@@ -9,7 +9,7 @@ if ($returnStatus !== 0) {
 }
 
 passthru(
-    './vendor/bin/phpcs --standard=' . __DIR__ . '/vendor/chadicus/coding-standard/Chadicus -n src tests *.php',
+    './vendor/bin/phpcs --standard=PSR2 -n src tests *.php',
     $returnStatus
 );
 if ($returnStatus !== 0) {
@@ -28,8 +28,6 @@ foreach ($xml->xpath('//file/metrics') as $metric) {
         exit(1);
     }
 }
-
-exit;
 
 unlink('clover.xml');
 

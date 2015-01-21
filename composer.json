@@ -11,15 +11,15 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=5.3.2",
+        "php": "~5.4",
         "ext-dom" : "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
         "phploc/phploc": "~2.0",
-        "chadicus/coding-standard": "dev-master"
+        "squizlabs/php_codesniffer": "~2.0"
     },
     "autoload": {
-        "psr-4": { "Chadicus\\Util\\": "src/" }
+        "psr-4": { "Chadicus\\": "src/" }
     }
 }
