@@ -11,7 +11,7 @@ use DOMXPath;
 /**
  * Static helper class for working with DOM objects.
  */
-class DOMUtil
+final class DOMUtil
 {
     /**
      * Coverts the given array to a DOMDocument.
