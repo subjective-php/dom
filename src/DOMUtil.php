@@ -40,7 +40,7 @@ final class DOMUtil
      */
     public static function toArray(DOMDocument $document)
     {
-        $result = array();
+        $result = [];
         $domXPath = new DOMXPath($document);
         foreach ($domXPath->query('//* | //@*') as $node) {
             $xpath = trim($node->getNodePath(), '/');
@@ -135,7 +135,7 @@ final class DOMUtil
             }
 
             if (!isset($arrayCopy[$part])) {
-                $arrayCopy[$part] = array();
+                $arrayCopy[$part] = [];
             }
 
             //if last
