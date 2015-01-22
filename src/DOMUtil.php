@@ -78,13 +78,10 @@ final class DOMUtil
 
         while (count($xpaths)) {
             $tagName = array_shift($xpaths);
-            $count = 1;
             $matches = [];
-            $pattern = '^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$';
-            if (preg_match("/{$pattern}/i", $tagName, $matches)) {
-                $tagName = $matches['name'];
-                $count = (int)$matches['count'];
-            }
+            preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
+            $tagName = array_key_exists('name', $matches) ? $matches['name'] : $tagName;
+            $count = array_key_exists('count', $matches) ? (int)$matches['count'] : 1;
 
             $path = $tagName;
             $list = $domXPath->query($path, $pointer);
