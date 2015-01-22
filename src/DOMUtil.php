@@ -95,11 +95,11 @@ final class DOMUtil
                 continue;
             }
 
-            while ($list->length < $count) {
-                $node = $document->createElement($tagName);
-                $pointer->appendChild($node);
-                $list = $domXPath->query($path, $pointer);
+            for ($i = 0; $i < $count - $list->length; $i++) {
+                $pointer->appendChild($document->createElement($tagName));
             }
+
+            $list = $domXPath->query($path, $pointer);
 
             $pointer = $list->item($count -1);
         }
