@@ -1,6 +1,6 @@
 <?php
 
-namespace Chadicus;
+namespace Chadicus\DOM;
 
 use DOMDocument;
 use DOMException;

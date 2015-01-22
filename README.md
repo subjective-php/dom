@@ -42,7 +42,7 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 * Convert an xml document to an array
 ```php
 <?php
-use Chadicus\DOMUtil;
+use Chadicus\DOM\DOMUtil;
 
 $xml = <<<XML
 <?xml version="1.0"?>                                                                                                    

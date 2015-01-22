@@ -1,12 +1,12 @@
 <?php
-namespace ChadicusTest;
+namespace ChadicusTest\DOM;
 
-use Chadicus\DOMUtil;
+use Chadicus\DOM\DOMUtil;
 
 /**
- * Unit tests for the \Chadicus\DOMUtil class.
+ * Unit tests for the \Chadicus\DOM\DOMUtil class.
  *
- * @coversDefaultClass \Chadicus\DOMUtil
+ * @coversDefaultClass \Chadicus\DOM\DOMUtil
  * @covers ::<private>
  */
 final class DOMUtilTest extends \PHPUnit_Framework_TestCase
