@@ -19,16 +19,32 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function fromArray()
+    public function fromArraySimpleStructure()
     {
-        $books = include __DIR__ . '/_files/books.php';
-        $document = DOMUtil::fromArray($books);
+        $document = DOMUtil::fromArray(include __DIR__ . '/_files/simple.php');
         $document->formatOutput = true;
         $this->assertSame(
-            file_get_contents(__DIR__ . '/_files/books.xml'),
+            file_get_contents(__DIR__ . '/_files/simple.xml'),
             $document->saveXml()
         );
+    }
 
+    /**
+     * Verify behavior of fromArray() with a more complex structure.
+     *
+     * @test
+     * @covers ::fromArray
+     *
+     * @return void
+     */
+    public function fromArrayComplexStructure()
+    {
+        $document = DOMUtil::fromArray(include __DIR__ . '/_files/complex.php');
+        $document->formatOutput = true;
+        $this->assertSame(
+            file_get_contents(__DIR__ . '/_files/complex.xml'),
+            $document->saveXml()
+        );
     }
 
     /**
@@ -90,12 +106,29 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function toArray()
+    public function toArraySimpleStructure()
     {
         $document = new \DOMDocument();
-        $document->load(__DIR__ . '/_files/books.xml');
+        $document->load(__DIR__ . '/_files/simple.xml');
         $array = DOMUtil::toArray($document);
-        $expected = include __DIR__ . '/_files/books.php';
+        $expected = include __DIR__ . '/_files/simple.php';
+        $this->assertSame($expected, $array);
+    }
+
+    /**
+     * Verify behavior of toArray() with a more complex structure.
+     *
+     * @test
+     * @covers ::toArray
+     *
+     * @return void
+     */
+    public function toArrayComplexStructure()
+    {
+        $document = new \DOMDocument();
+        $document->load(__DIR__ . '/_files/complex.xml');
+        $array = DOMUtil::toArray($document);
+        $expected = include __DIR__ . '/_files/complex.php';
         $this->assertSame($expected, $array);
     }
 }

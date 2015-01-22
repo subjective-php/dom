@@ -42,15 +42,13 @@ final class DOMUtil
         $result = [];
         $domXPath = new DOMXPath($document);
         foreach ($domXPath->query('//* | //@*') as $node) {
-            $xpath = trim($node->getNodePath(), '/');
-            $xpath = str_replace('[', '/', $xpath);
-            $xpath = str_replace(']', '', $xpath);
-            $value = null;
             if ($node->childNodes->length === 1 && $node->childNodes->item(0) instanceof DOMText) {
+                $xpath = trim($node->getNodePath(), '/');
+                $xpath = str_replace('[', '/', $xpath);
+                $xpath = str_replace(']', '', $xpath);
                 $value = $node->childNodes->item(0)->nodeValue;
+                self::pathToArray($result, $xpath, $value);
             }
-
-            $result = self::pathToArray($result, $xpath, $value);
         }
 
         return $result;
@@ -123,30 +121,29 @@ final class DOMUtil
      *
      * @return array
      */
-    private static function pathToArray(array $array, $path, $value = null)
+    private static function pathToArray(array &$array, $path, $value = null)
     {
         $parts = array_filter(explode('/', $path));
+        $key = array_shift($parts);
 
-        $arrayCopy = &$array;
-        foreach ($parts as $i => $part) {
-            if (is_numeric($part)) {
-                $part = ((int)$part) - 1;
-            }
-
-            if (!isset($arrayCopy[$part])) {
-                $arrayCopy[$part] = [];
-            }
-
-            //if last
-            if ($i === count($parts) - 1) {
-                $arrayCopy[$part] = $value;
-                continue;
-            }
-
-            $arrayCopy = &$arrayCopy[$part];
+        if (is_numeric($key)) {
+            $key = (int)$key -1;
         }
 
-        return $array;
+        if (empty($parts)) {
+            $array[$key] = $value;
+            return;
+        }
+
+        if (!array_key_exists($key, $array)) {
+            $array[$key] = [];
+        } elseif (!is_array($array[$key])) {
+            $temp = $array[$key];
+            $array[$key] = [$temp];
+        }
+
+        //RECURSION!!
+        self::pathToArray($array[$key], implode('/', $parts), $value);
     }
 
     /**
@@ -162,8 +159,12 @@ final class DOMUtil
         $result = [];
         foreach ($array as $key => $value) {
             if (is_int($key)) {
-                $key += 1;
-                $newKey = "{$prefix}[{$key}]";
+                if (substr($prefix, -1) == ']') {
+                    $newKey = $prefix;
+                } else {
+                    $key += 1;
+                    $newKey = "{$prefix}[{$key}]";
+                }
             } else {
                 $newKey = $prefix . (empty($prefix) ? '' : '/') . $key;
             }
