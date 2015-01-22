@@ -2,7 +2,6 @@
 
 namespace Chadicus;
 
-use DOMAttr;
 use DOMDocument;
 use DOMException;
 use DOMText;
@@ -41,14 +40,8 @@ final class DOMUtil
     {
         $result = [];
         $domXPath = new DOMXPath($document);
-        foreach ($domXPath->query('//* | //@*') as $node) {
-            if ($node->childNodes->length === 1 && $node->childNodes->item(0) instanceof DOMText) {
-                $xpath = trim($node->getNodePath(), '/');
-                $xpath = str_replace('[', '/', $xpath);
-                $xpath = str_replace(']', '', $xpath);
-                $value = $node->childNodes->item(0)->nodeValue;
-                self::pathToArray($result, $xpath, $value);
-            }
+        foreach ($domXPath->query('//*[not(*)] | //@*') as $node) {
+            self::pathToArray($result, $node->getNodePath(), $node->nodeValue);
         }
 
         return $result;
@@ -74,17 +67,12 @@ final class DOMUtil
             throw new DOMException("XPath {$xpath} is not valid.");
         }
 
-        $xpaths = array_filter(explode('/', $xpath));
-
-        while (count($xpaths)) {
-            $tagName = array_shift($xpaths);
+        foreach (array_filter(explode('/', $xpath)) as $tagName) {
             $matches = [];
             preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
             $tagName = array_key_exists('name', $matches) ? $matches['name'] : $tagName;
             $count = array_key_exists('count', $matches) ? (int)$matches['count'] : 1;
 
-            $path = $tagName;
-            $list = $domXPath->query($path, $pointer);
             if ($tagName[0] === '@') {
                 $attribute = $document->createAttribute(substr($tagName, 1));
                 $pointer->appendChild($attribute);
@@ -92,18 +80,12 @@ final class DOMUtil
                 continue;
             }
 
+            $list = $domXPath->query($tagName, $pointer);
             for ($i = 0; $i < $count - $list->length; $i++) {
                 $pointer->appendChild($document->createElement($tagName));
             }
 
-            $list = $domXPath->query($path, $pointer);
-
-            $pointer = $list->item($count -1);
-        }
-
-        if ($pointer instanceof DOMAttr) {
-            $pointer->value = $value;
-            return;
+            $pointer = $domXPath->query($tagName, $pointer)->item($count - 1);
         }
 
         $pointer->nodeValue = $value;
@@ -120,6 +102,7 @@ final class DOMUtil
      */
     private static function pathToArray(array &$array, $path, $value = null)
     {
+        $path = str_replace(['[', ']'], ['/', ''], $path);
         $parts = array_filter(explode('/', $path));
         $key = array_shift($parts);
 
