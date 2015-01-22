@@ -4,6 +4,7 @@ namespace Chadicus;
 
 use DOMDocument;
 use DOMException;
+use DOMNode;
 use DOMText;
 use DOMXPath;
 
@@ -81,14 +82,29 @@ final class DOMUtil
             }
 
             $list = $domXPath->query($tagName, $pointer);
-            for ($i = 0; $i < $count - $list->length; $i++) {
-                $pointer->appendChild($document->createElement($tagName));
-            }
+            self::addMultiple($document, $pointer, $tagName, $count - $list->length);
 
             $pointer = $domXPath->query($tagName, $pointer)->item($count - 1);
         }
 
         $pointer->nodeValue = $value;
+    }
+
+    /**
+     * Helper method to add multiple identical nodes to the given context node.
+     *
+     * @param DOMDocument $document The parent document.
+     * @param DOMNode     $context  The node to which the new elements will be added.
+     * @param string      $tagName  The tag name of the element.
+     * @param integer     $limit    The number of elements to create.
+     *
+     * @return void
+     */
+    private static function addMultiple(DOMDocument $document, DOMNode $context, $tagName, $limit)
+    {
+        for ($i = 0; $i < $limit; $i++) {
+            $context->appendChild($document->createElement($tagName));
+        }
     }
 
     /**
