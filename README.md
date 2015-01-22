@@ -37,3 +37,74 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 ```sh
 ./build.php
 ```
+## Examples
+
+* Convert an xml document to an array
+```php
+<?php
+use Chadicus\DOMUtil;
+
+$xml = <<<XML
+<?xml version="1.0"?>                                                                                                    
+<catalog>                                                                                                                
+  <book id="bk101">                                                                                                      
+    <author>Gambardella, Matthew</author>                                                                                
+    <title>XML Developer's Guide</title>                                                                                 
+    <genre>Computer</genre>                                                                                              
+    <price>44.95</price>                                                                                                 
+    <publish_date>2000-10-01</publish_date>                                                                              
+    <description>An in-depth look at creating applications with XML.</description>                                       
+  </book>                                                                                                                
+  <book id="bk102">                                                                                                      
+    <author>Ralls, Kim</author>                                                                                          
+    <title>Midnight Rain</title>                                                                                         
+    <genre>Fantasy</genre>                                                                                               
+    <price>5.95</price>                                                                                                  
+    <publish_date>2000-12-16</publish_date>                                                                              
+    <description>A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.</description>
+  </book>                                                                                                                
+XML;
+
+$document = new \DOMDocument();
+$document->loadXml($xml);
+$array = DOMUtil::toArray($document);
+
+var_export($array);
+
+```
+
+Output will be similar to:
+
+```
+array (
+  'catalog' => 
+  array (
+    'book' => 
+    array (
+      0 => 
+      array (
+        '@id' => 'bk101',
+        'author' => 'Gambardella, Matthew',
+        'title' => 'XML Developer\'s Guide',
+        'genre' => 'Computer',
+        'price' => '44.95',
+        'publish_date' => '2000-10-01',
+        'description' => 'An in-depth look at creating applications with XML.',
+      ),
+      1 => 
+      array (
+        '@id' => 'bk102',
+        'author' => 'Ralls, Kim',
+        'title' => 'Midnight Rain',
+        'genre' => 'Fantasy',
+        'price' => '5.95',
+        'publish_date' => '2000-12-16',
+        'description' => 'A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.',
+      ),
+    ),
+  ),
+)
+```
+
+
+
