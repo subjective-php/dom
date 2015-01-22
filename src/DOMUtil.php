@@ -134,8 +134,7 @@ final class DOMUtil
         if (!array_key_exists($key, $array)) {
             $array[$key] = [];
         } elseif (!is_array($array[$key])) {
-            $temp = $array[$key];
-            $array[$key] = [$temp];
+            $array[$key] = [$array[$key]];
         }
 
         //RECURSION!!
@@ -155,12 +154,7 @@ final class DOMUtil
         $result = [];
         foreach ($array as $key => $value) {
             if (is_int($key)) {
-                if (substr($prefix, -1) == ']') {
-                    $newKey = $prefix;
-                } else {
-                    $key += 1;
-                    $newKey = "{$prefix}[{$key}]";
-                }
+                $newKey = (substr($prefix, -1) == ']') ? $prefix : "{$prefix}[" . (++$key) . ']';
             } else {
                 $newKey = $prefix . (empty($prefix) ? '' : '/') . $key;
             }
