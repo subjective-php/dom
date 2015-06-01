@@ -1,4 +1,4 @@
-<phpunit colors="true" forceCoversAnnotation="true" strict="true">
+<phpunit colors="true" forceCoversAnnotation="true">
     <testsuites>
         <testsuite name="Chadicus DOM Test Suite">
             <directory suffix="Test.php">tests</directory>
@@ -9,8 +9,4 @@
             <directory>src</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-html" target="coverage" charset="UTF-8" highlight="false" lowUpperBound="100" highLowerBound="100"/>
-        <log type="coverage-clover" target="clover.xml"/>
-    </logging>
 </phpunit>

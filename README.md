@@ -42,7 +42,7 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 * Convert an xml document to an array
 ```php
 <?php
-use Chadicus\DOM\DOMUtil;
+use Chadicus\Util;
 
 $xml = <<<XML
 <?xml version="1.0"?>                                                                                                    
@@ -67,7 +67,7 @@ XML;
 
 $document = new \DOMDocument();
 $document->loadXml($xml);
-$array = DOMUtil::toArray($document);
+$array = Util\DOMDocument::toArray($document);
 
 var_export($array);
 
