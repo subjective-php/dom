@@ -8,14 +8,6 @@ if ($returnStatus !== 0) {
     exit(1);
 }
 
-passthru(
-    './vendor/bin/phpcs --standard=PSR2 -n src tests *.php',
-    $returnStatus
-);
-if ($returnStatus !== 0) {
-    exit(1);
-}
-
 passthru('./vendor/bin/phpunit', $returnStatus);
 if ($returnStatus !== 0) {
     exit(1);
