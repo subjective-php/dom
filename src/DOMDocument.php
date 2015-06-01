@@ -1,28 +1,22 @@
 <?php
 
-namespace Chadicus\DOM;
-
-use DOMDocument;
-use DOMException;
-use DOMNode;
-use DOMText;
-use DOMXPath;
+namespace Chadicus\Util;
 
 /**
- * Static helper class for working with DOM objects.
+ * Static helper class for working with \DOM objects.
  */
-final class DOMUtil
+final class DOMDocument
 {
     /**
-     * Coverts the given array to a DOMDocument.
+     * Coverts the given array to a \DOMDocument.
      *
      * @param array $array The array to covert.
      *
-     * @return DOMDocument
+     * @return \DOMDocument
      */
     public static function fromArray(array $array)
     {
-        $document = new DOMDocument();
+        $document = new \DOMDocument();
         foreach (self::flatten($array) as $path => $value) {
             self::addXPath($document, $path, $value);
         }
@@ -31,16 +25,16 @@ final class DOMUtil
     }
 
     /**
-     * Converts the given DOMDocument to an array.
+     * Converts the given \DOMDocument to an array.
      *
-     * @param DOMDocument $document The document to convert.
+     * @param \DOMDocument $document The document to convert.
      *
      * @return array
      */
-    public static function toArray(DOMDocument $document)
+    public static function toArray(\DOMDocument $document)
     {
         $result = [];
-        $domXPath = new DOMXPath($document);
+        $domXPath = new \DOMXPath($document);
         foreach ($domXPath->query('//*[not(*)] | //@*') as $node) {
             self::pathToArray($result, $node->getNodePath(), $node->nodeValue);
         }
@@ -49,23 +43,23 @@ final class DOMUtil
     }
 
     /**
-     * Helper method to add a new DOMNode to the given document with the given value.
+     * Helper method to add a new \DOMNode to the given document with the given value.
      *
-     * @param DOMDocument $document The document to which the node will be added.
+     * @param \DOMDocument $document The document to which the node will be added.
      * @param string       $xpath    A valid xpath destination of the new node.
      * @param mixed        $value    The value for the new node.
      *
      * @return void
      *
-     * @throws DOMException Thrown if the given $xpath is not valid.
+     * @throws \DOMException Thrown if the given $xpath is not valid.
      */
-    private static function addXPath(DOMDocument $document, $xpath, $value = null)
+    private static function addXPath(\DOMDocument $document, $xpath, $value = null)
     {
         $pointer = $document;
-        $domXPath = new DOMXPath($document);
+        $domXPath = new \DOMXPath($document);
 
         if (@$domXPath->evaluate($xpath) === false) {
-            throw new DOMException("XPath {$xpath} is not valid.");
+            throw new \DOMException("XPath {$xpath} is not valid.");
         }
 
         foreach (array_filter(explode('/', $xpath)) as $tagName) {
@@ -93,14 +87,14 @@ final class DOMUtil
     /**
      * Helper method to add multiple identical nodes to the given context node.
      *
-     * @param DOMDocument $document The parent document.
-     * @param DOMNode     $context  The node to which the new elements will be added.
+     * @param \DOMDocument $document The parent document.
+     * @param \DOMNode     $context  The node to which the new elements will be added.
      * @param string      $tagName  The tag name of the element.
      * @param integer     $limit    The number of elements to create.
      *
      * @return void
      */
-    private static function addMultiple(DOMDocument $document, DOMNode $context, $tagName, $limit)
+    private static function addMultiple(\DOMDocument $document, \DOMNode $context, $tagName, $limit)
     {
         for ($i = 0; $i < $limit; $i++) {
             $context->appendChild($document->createElement($tagName));

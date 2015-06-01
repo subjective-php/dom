@@ -1,15 +1,15 @@
 <?php
 namespace ChadicusTest\DOM;
 
-use Chadicus\DOM\DOMUtil;
+use Chadicus\Util\DOMDocument;
 
 /**
- * Unit tests for the \Chadicus\DOM\DOMUtil class.
+ * Unit tests for the \Chadicus\Util\DOMDocument class.
  *
- * @coversDefaultClass \Chadicus\DOM\DOMUtil
+ * @coversDefaultClass \Chadicus\Util\DOMDocument
  * @covers ::<private>
  */
-final class DOMUtilTest extends \PHPUnit_Framework_TestCase
+final class DOMDocumentTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Verify basic behavior of fromArray().
@@ -21,7 +21,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function fromArraySimpleStructure()
     {
-        $document = DOMUtil::fromArray(include __DIR__ . '/_files/simple.php');
+        $document = DOMDocument::fromArray(include __DIR__ . '/_files/simple.php');
         $document->formatOutput = true;
         $this->assertSame(
             file_get_contents(__DIR__ . '/_files/simple.xml'),
@@ -39,7 +39,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function fromArrayComplexStructure()
     {
-        $document = DOMUtil::fromArray(include __DIR__ . '/_files/complex.php');
+        $document = DOMDocument::fromArray(include __DIR__ . '/_files/complex.php');
         $document->formatOutput = true;
         $this->assertSame(
             file_get_contents(__DIR__ . '/_files/complex.xml'),
@@ -59,7 +59,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function fromArrayInvalidKey()
     {
-        DOMUtil::fromArray([['foo' => 'bar']]);
+        DOMDocument::fromArray([['foo' => 'bar']]);
     }
 
     /**
@@ -72,7 +72,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function fromArrayEmpty()
     {
-        $document = DOMUtil::fromArray([]);
+        $document = DOMDocument::fromArray([]);
         $document->formatOutput = true;
         $this->assertSame(
             "<?xml version=\"1.0\"?>\n",
@@ -90,7 +90,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function fromArraySingleElementWithAttribute()
     {
-        $document = DOMUtil::fromArray(['foo' => ['@id' => 'bar']]);
+        $document = DOMDocument::fromArray(['foo' => ['@id' => 'bar']]);
         $document->formatOutput = true;
         $this->assertSame(
             "<?xml version=\"1.0\"?>\n<foo id=\"bar\"/>\n",
@@ -110,7 +110,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
     {
         $document = new \DOMDocument();
         $document->load(__DIR__ . '/_files/simple.xml');
-        $array = DOMUtil::toArray($document);
+        $array = DOMDocument::toArray($document);
         $expected = include __DIR__ . '/_files/simple.php';
         $this->assertSame($expected, $array);
     }
@@ -127,7 +127,7 @@ final class DOMUtilTest extends \PHPUnit_Framework_TestCase
     {
         $document = new \DOMDocument();
         $document->load(__DIR__ . '/_files/complex.xml');
-        $array = DOMUtil::toArray($document);
+        $array = DOMDocument::toArray($document);
         $expected = include __DIR__ . '/_files/complex.php';
         $this->assertSame($expected, $array);
     }
