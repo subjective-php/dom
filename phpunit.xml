@@ -9,8 +9,4 @@
             <directory>src</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-html" target="coverage" charset="UTF-8" highlight="false" lowUpperBound="100" highLowerBound="100"/>
-        <log type="coverage-clover" target="clover.xml"/>
-    </logging>
 </phpunit>
