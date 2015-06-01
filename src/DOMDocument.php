@@ -65,8 +65,9 @@ final class DOMDocument
         foreach (array_filter(explode('/', $xpath)) as $tagName) {
             $matches = [];
             preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
-            $tagName = array_key_exists('name', $matches) ? $matches['name'] : $tagName;
-            $count = array_key_exists('count', $matches) ? (int)$matches['count'] : 1;
+            $matches += ['name' => $tagName, 'count' => 1];
+            $tagName = $matches['name'];
+            $count = $matches['count'];
 
             if ($tagName[0] === '@') {
                 $attribute = $document->createAttribute(substr($tagName, 1));
