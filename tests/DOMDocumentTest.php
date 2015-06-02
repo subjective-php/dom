@@ -48,18 +48,18 @@ final class DOMDocumentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Verify behavior of fromArray() when a key is an invlid tag name.
+     * Verify behavior of addXPath() when $xpath is not a valid xpath expression.
      *
      * @test
-     * @covers ::fromArray
+     * @covers ::addXPath
      * @expectedException \DOMException
      * @expectedExceptionMessage XPath [1]/foo is not valid.
      *
      * @return void
      */
-    public function fromArrayInvalidKey()
+    public function addXPathInvalidExpression()
     {
-        DOMDocument::fromArray([['foo' => 'bar']]);
+        DOMDocument::addXPath(new \DOMDocument(), '[1]/foo');
     }
 
     /**
@@ -131,4 +131,47 @@ final class DOMDocumentTest extends \PHPUnit_Framework_TestCase
         $expected = include __DIR__ . '/_files/complex.php';
         $this->assertSame($expected, $array);
     }
+
+    /**
+     * Verify basic behavior of addXPath() with attribute
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathWithAttribute()
+    {
+        $xpath = '/path/to/node/with/@attribute';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value');
+        $expected = <<<XML
+<?xml version="1.0"?>
+<path><to><node><with attribute="value"/></node></to></path>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
+    /**
+     * Verify basic behavior of addXPath().
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPath()
+    {
+        $xpath = '/path/to/node';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value');
+        $expected = <<<XML
+<?xml version="1.0"?>
+<path><to><node>value</node></to></path>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
 }

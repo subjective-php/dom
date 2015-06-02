@@ -53,7 +53,7 @@ final class DOMDocument
      *
      * @throws \DOMException Thrown if the given $xpath is not valid.
      */
-    private static function addXPath(\DOMDocument $document, $xpath, $value = null)
+    public static function addXPath(\DOMDocument $document, $xpath, $value = null)
     {
         $pointer = $document;
         $domXPath = new \DOMXPath($document);
