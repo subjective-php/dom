@@ -53,35 +53,65 @@ final class DOMDocument
      *
      * @throws \DOMException Thrown if the given $xpath is not valid.
      */
-    private static function addXPath(\DOMDocument $document, $xpath, $value = null)
+    public static function addXPath(\DOMDocument $document, $xpath, $value = null)
     {
-        $pointer = $document;
         $domXPath = new \DOMXPath($document);
-
-        if (@$domXPath->evaluate($xpath) === false) {
+        $list = @$domXPath->query($xpath);
+        if ($list === false) {
             throw new \DOMException("XPath {$xpath} is not valid.");
         }
 
+        if ($list->length) {
+            $list->item(0)->nodeValue = $value;
+            return;
+        }
+
+        $pointer = $document;
         foreach (array_filter(explode('/', $xpath)) as $tagName) {
-            $matches = [];
-            preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
-            $tagName = array_key_exists('name', $matches) ? $matches['name'] : $tagName;
-            $count = array_key_exists('count', $matches) ? (int)$matches['count'] : 1;
-
-            if ($tagName[0] === '@') {
-                $attribute = $document->createAttribute(substr($tagName, 1));
-                $pointer->appendChild($attribute);
-                $pointer = $attribute;
-                continue;
-            }
-
-            $list = $domXPath->query($tagName, $pointer);
-            self::addMultiple($document, $pointer, $tagName, $count - $list->length);
-
-            $pointer = $domXPath->query($tagName, $pointer)->item($count - 1);
+            $pointer = self::parseFragment($domXPath, $pointer, $tagName);
         }
 
         $pointer->nodeValue = $value;
+    }
+
+    /**
+     * Helper method to create element(s) from the given tagName.
+     *
+     * @param \domXPath $domXPath The DOMXPath object built using the owner document.
+     * @param \DOMNode  $context  The node to which the new elements will be added.
+     * @param string    $tagName  The tag name of the element.
+     *
+     * @return \DOMElement|\DOMAttr The DOMNode that was created.
+     */
+    private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, $tagName)
+    {
+        $document = $domXPath->document;
+
+        if ($tagName[0] === '@') {
+            $attribute = $document->createAttribute(substr($tagName, 1));
+            $context->appendChild($attribute);
+            return $attribute;
+        }
+
+        $matches = [];
+        if (preg_match('/^(?P<parent>[a-z][\w0-9-]*)\[(?P<child>[a-z][\w0-9-]*)\s*=\s*"(?P<value>.*)"\]$/i', $tagName, $matches)) {
+            $parent = $document->createElement($matches['parent']);
+            $parent->appendChild($document->createElement($matches['child'], $matches['value']));
+            $context->appendChild($parent);
+            return $parent;
+        }
+
+        $matches = [];
+        preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
+        $matches += ['count' => 1, 'name' => $tagName];
+
+        $count = $matches['count'];
+        $tagName = $matches['name'];
+
+        $list = $domXPath->query($tagName, $context);
+        self::addMultiple($document, $context, $tagName, $count - $list->length);
+
+        return $domXPath->query($tagName, $context)->item($count - 1);
     }
 
     /**
