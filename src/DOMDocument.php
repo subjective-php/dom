@@ -69,11 +69,21 @@ final class DOMDocument
         }
 
         foreach (array_filter(explode('/', $xpath)) as $tagName) {
+            $count = 1;
             $matches = [];
-            preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
-            $matches += ['name' => $tagName, 'count' => 1];
-            $tagName = $matches['name'];
-            $count = $matches['count'];
+            if (preg_match('/^(?P<parent>[a-z][\w0-9-]*)\[(?P<child>[a-z][\w0-9-]*)\s*=\s*"(?P<value>.*)"\]$/i', $tagName, $matches)) {
+                $child = $document->createElement($matches['child'], $matches['value']);
+                $parent = $document->createElement($matches['parent']);
+                $parent->appendChild($child);
+                $pointer->appendChild($parent);
+                $pointer = $parent;
+                continue;
+            }
+
+            if (preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches)) {
+                $tagName = $matches['name'];
+                $count = $matches['count'];
+            }
 
             if ($tagName[0] === '@') {
                 $attribute = $document->createAttribute(substr($tagName, 1));

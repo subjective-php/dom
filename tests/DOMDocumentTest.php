@@ -191,4 +191,59 @@ XML;
         DOMDocument::addXPath($document, $xpath, 'new value');
         $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>new value</node></to></path>\n", $document->saveXml());
     }
+
+    /**
+     * Verify behavior of addXPath() when xpath contains child element with value.
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathChildElementWithValue()
+    {
+        $xpath = '/root/parent[child1 = "child 1 value"]/child2';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'child 2 value');
+        $document->formatOutput = true;
+        $expected = <<<XML
+<?xml version="1.0"?>
+<root>
+  <parent>
+    <child1>child 1 value</child1>
+    <child2>child 2 value</child2>
+  </parent>
+</root>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
+    /**
+     * Verify behavior of addXPath() when xpath specifies the numeric index.
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathWithNumericIndex()
+    {
+        $xpath = '/root/parent/child[3]';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value');
+        $document->formatOutput = true;
+        $expected = <<<XML
+<?xml version="1.0"?>
+<root>
+  <parent>
+    <child/>
+    <child/>
+    <child>value</child>
+  </parent>
+</root>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
 }
