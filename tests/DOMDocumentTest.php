@@ -161,7 +161,7 @@ XML;
      *
      * @return void
      */
-    public function addXPath()
+    public function addXPathExistingElement()
     {
         $xpath = '/path/to/node';
         $document = new \DOMDocument();
@@ -174,4 +174,21 @@ XML;
         $this->assertSame($expected, $document->saveXml());
     }
 
+    /**
+     * Verify behavior of addXPath() when element exists.
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPath()
+    {
+        $xpath = '/path/to/node';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value');
+        $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>value</node></to></path>\n", $document->saveXml());
+        DOMDocument::addXPath($document, $xpath, 'new value');
+        $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>new value</node></to></path>\n", $document->saveXml());
+    }
 }

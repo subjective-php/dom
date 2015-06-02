@@ -58,8 +58,14 @@ final class DOMDocument
         $pointer = $document;
         $domXPath = new \DOMXPath($document);
 
-        if (@$domXPath->evaluate($xpath) === false) {
+        $list = @$domXPath->query($xpath);
+        if ($list === false) {
             throw new \DOMException("XPath {$xpath} is not valid.");
+        }
+
+        if ($list->length) {
+            $list->item(0)->nodeValue = $value;
+            return;
         }
 
         foreach (array_filter(explode('/', $xpath)) as $tagName) {
