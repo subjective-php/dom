@@ -5,7 +5,7 @@
 [![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
 [![Total Downloads](http://img.shields.io/packagist/dt/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
 [![License](http://img.shields.io/packagist/l/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
-
+[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://chadicus.github.io/dom-php)
 
 
 A collection of utility classes to work with PHP DOM Objects
