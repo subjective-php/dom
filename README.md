@@ -1,5 +1,5 @@
 # Chadicus\DOM
-[![Build Status](http://img.shields.io/travis/chadicus/dom-php.svg?style=flat)](https://travis-ci.org/chadicus/dom-php)
+[![Build Status](https://travis-ci.org/chadicus/dom-php.svg?branch=master)](https://travis-ci.org/chadicus/dom-php)
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/chadicus/dom-php.svg?style=flat)](https://scrutinizer-ci.com/g/chadicus/dom-php/)
 [![Code Coverage](http://img.shields.io/coveralls/chadicus/dom-php.svg?style=flat)](https://coveralls.io/r/chadicus/dom-php)
 
