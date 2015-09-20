@@ -7,6 +7,8 @@
 [![Total Downloads](http://img.shields.io/packagist/dt/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
 [![License](http://img.shields.io/packagist/l/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
 
+[![Dependency Status](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001)
+
 [![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://www.pholiophp.org/chadicus/dom)
 
 A collection of utility classes to work with PHP DOM Objects
