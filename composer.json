@@ -16,9 +16,9 @@
         "ext-dom" : "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit": "^5.0",
         "chadicus/coding-standard": "^1.1.2",
-        "satooshi/php-coveralls": "~0.6.1"
+        "satooshi/php-coveralls": "^1.0"
     },
     "autoload": {
         "psr-4": { "Chadicus\\Util\\": "src/" }
