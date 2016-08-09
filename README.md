@@ -1,13 +1,17 @@
 # Chadicus\DOM
+
 [![Build Status](https://travis-ci.org/chadicus/dom-php.svg?branch=master)](https://travis-ci.org/chadicus/dom-php)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/chadicus/dom-php.svg?style=flat)](https://scrutinizer-ci.com/g/chadicus/dom-php/)
-[![Code Coverage](http://img.shields.io/coveralls/chadicus/dom-php.svg?style=flat)](https://coveralls.io/r/chadicus/dom-php)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chadicus/dom-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadicus/dom-php/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/chadicus/dom-php/badge.svg?branch=master)](https://coveralls.io/github/chadicus/dom-php?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001)
 
-[![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
-[![Total Downloads](http://img.shields.io/packagist/dt/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
-[![License](http://img.shields.io/packagist/l/chadicus/dom.svg?style=flat)](https://packagist.org/packages/chadicus/dom)
+[![Latest Stable Version](https://poser.pugx.org/chadicus/dom/v/stable)](https://packagist.org/packages/chadicus/dom)
+[![Latest Unstable Version](https://poser.pugx.org/chadicus/dom/v/unstable)](https://packagist.org/packages/chadicus/dom)
+[![License](https://poser.pugx.org/chadicus/dom/license)](https://packagist.org/packages/chadicus/dom)
 
-[![Dependency Status](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001)
+[![Total Downloads](https://poser.pugx.org/chadicus/dom/downloads)](https://packagist.org/packages/chadicus/dom)
+[![Monthly Downloads](https://poser.pugx.org/chadicus/dom/d/monthly)](https://packagist.org/packages/chadicus/dom)
+[![Daily Downloads](https://poser.pugx.org/chadicus/dom/d/daily)](https://packagist.org/packages/chadicus/dom)
 
 [![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://www.pholiophp.org/chadicus/dom)
 
@@ -15,7 +19,7 @@ A collection of utility classes to work with PHP DOM Objects
 
 ## Requirements
 
-chadicus\dom requires PHP 5.4 (or later).
+chadicus\dom requires PHP 5.6 (or later).
 
 ##Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
@@ -24,7 +28,7 @@ To add the library as a local, per-project dependency use [Composer](http://getc
 ```json
 {
     "require": {
-        "chadicus/dom": "~1.0"
+        "chadicus/dom": "~2.0"
     }
 }
 ```
