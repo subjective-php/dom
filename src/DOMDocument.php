@@ -77,7 +77,7 @@ final class DOMDocument
     /**
      * Helper method to create element(s) from the given tagName.
      *
-     * @param \domXPath $domXPath The DOMXPath object built using the owner document.
+     * @param \DOMXPath $domXPath The DOMXPath object built using the owner document.
      * @param \DOMNode  $context  The node to which the new elements will be added.
      * @param string    $tagName  The tag name of the element.
      *
@@ -119,8 +119,8 @@ final class DOMDocument
      *
      * @param \DOMDocument $document The parent document.
      * @param \DOMNode     $context  The node to which the new elements will be added.
-     * @param string      $tagName  The tag name of the element.
-     * @param integer     $limit    The number of elements to create.
+     * @param string       $tagName  The tag name of the element.
+     * @param integer      $limit    The number of elements to create.
      *
      * @return void
      */
@@ -138,7 +138,7 @@ final class DOMDocument
      * @param string $path  The xpath defining the new elements.
      * @param mixed  $value The value for the last child element.
      *
-     * @return array
+     * @return void
      */
     private static function pathToArray(array &$array, $path, $value = null)
     {
