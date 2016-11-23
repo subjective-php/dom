@@ -155,14 +155,32 @@ abstract class DOMDocument
             return;
         }
 
-        if (!array_key_exists($key, $array)) {
-            $array[$key] = [];
-        } elseif (!is_array($array[$key])) {
-            $array[$key] = [$array[$key]];
-        }
+        self::arrayize($array, $key);
 
         //RECURSION!!
         self::pathToArray($array[$key], implode('/', $parts), $value);
+    }
+
+    /**
+     * Helper method to ensure the value at the given $key is an array.
+     *
+     * @param array  $array The array for which element $key should be checked.
+     * @param string $key   The key for which the value will be made into an array.
+     *
+     * @return void
+     */
+    final private static function arrayize(array &$array, $key)
+    {
+        if (!array_key_exists($key, $array)) {
+            //key does not exist, set to empty array and return
+            $array[$key] = [];
+            return;
+        }
+
+        if (!is_array($array[$key])) {
+            //key exists but is not an array
+            $array[$key] = [$array[$key]];
+        }//else key exists and is an array
     }
 
     /**
