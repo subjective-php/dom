@@ -5,7 +5,7 @@ namespace Chadicus\Util;
 /**
  * Static helper class for working with \DOM objects.
  */
-final class DOMDocument
+abstract class DOMDocument
 {
     /**
      * Coverts the given array to a \DOMDocument.
@@ -14,7 +14,7 @@ final class DOMDocument
      *
      * @return \DOMDocument
      */
-    public static function fromArray(array $array)
+    final public static function fromArray(array $array)
     {
         $document = new \DOMDocument();
         foreach (self::flatten($array) as $path => $value) {
@@ -31,7 +31,7 @@ final class DOMDocument
      *
      * @return array
      */
-    public static function toArray(\DOMDocument $document)
+    final public static function toArray(\DOMDocument $document)
     {
         $result = [];
         $domXPath = new \DOMXPath($document);
@@ -53,7 +53,7 @@ final class DOMDocument
      *
      * @throws \DOMException Thrown if the given $xpath is not valid.
      */
-    public static function addXPath(\DOMDocument $document, $xpath, $value = null)
+    final public static function addXPath(\DOMDocument $document, $xpath, $value = null)
     {
         $domXPath = new \DOMXPath($document);
         $list = @$domXPath->query($xpath);
@@ -83,7 +83,7 @@ final class DOMDocument
      *
      * @return \DOMElement|\DOMAttr The DOMNode that was created.
      */
-    private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, $tagName)
+    final private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, $tagName)
     {
         $document = $domXPath->document;
 
@@ -124,7 +124,7 @@ final class DOMDocument
      *
      * @return void
      */
-    private static function addMultiple(\DOMDocument $document, \DOMNode $context, $tagName, $limit)
+    final private static function addMultiple(\DOMDocument $document, \DOMNode $context, $tagName, $limit)
     {
         for ($i = 0; $i < $limit; $i++) {
             $context->appendChild($document->createElement($tagName));
@@ -140,7 +140,7 @@ final class DOMDocument
      *
      * @return void
      */
-    private static function pathToArray(array &$array, $path, $value = null)
+    final private static function pathToArray(array &$array, $path, $value = null)
     {
         $path = str_replace(['[', ']'], ['/', ''], $path);
         $parts = array_filter(explode('/', $path));
@@ -173,7 +173,7 @@ final class DOMDocument
      *
      * @return array
      */
-    private static function flatten(array $array, $prefix = '')
+    final private static function flatten(array $array, $prefix = '')
     {
         $result = [];
         foreach ($array as $key => $value) {
