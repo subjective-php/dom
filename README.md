@@ -25,12 +25,8 @@ chadicus\dom requires PHP 5.6 (or later).
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
 `chadicus/dom` to your project's `composer.json` file such as:
 
-```json
-{
-    "require": {
-        "chadicus/dom": "~2.0"
-    }
-}
+```sh
+composer require chadicus/dom
 ```
 ##Contact
 Developers may be contacted at:
@@ -45,9 +41,9 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 composer install
 ./vendor/bin/phpunit
 ```
-## Examples
+# Examples
 
-* Convert an xml document to an array
+### Convert an xml document to an array
 ```php
 <?php
 use Chadicus\Util;
@@ -114,4 +110,87 @@ array (
 )
 ```
 
+### Convert an array to XML
+```php
+<?php
+use Chadicus\Util;
 
+$catalog = [
+    'book' => [
+        [
+            '@id' => '58339e95d52d9',
+            'author' => 'Corets, Eva',
+            'title' => 'The Sundered Grail',
+            'genre' => 'Fantasy',
+            'price' => 5.95,
+            'published' => 1000094400,
+            'description' => "The two daughters of Maeve, half-sisters, battle one another for control of England. Sequel to Oberon's Legacy.",
+        ],
+        [
+            '@id' => '58339e95d530e',
+            'author' => 'Randall, Cynthia',
+            'title' => 'Lover Birds',
+            'genre' => 'Romance',
+            'price' => 4.95,
+            'published' => 967867200,
+            'description' => 'When Carla meets Paul at an ornithology conference, tempers fly as feathers get ruffled.',
+        ],
+    ],
+];
+
+$document = Util\DOMDocument::fromArray(['catalog' => $catalog]);
+$document->formatOutput = true;
+echo $document->saveXml();
+```
+#### Output
+
+```
+<?xml version="1.0"?>
+<catalog>
+  <book id="58339e95d52d9">
+    <author>Corets, Eva</author>
+    <title>The Sundered Grail</title>
+    <genre>Fantasy</genre>
+    <price>5.95</price>
+    <published>1000094400</published>
+    <description>The two daughters of Maeve, half-sisters, battle one another for control of England. Sequel to Oberon's Legacy.</description>
+  </book>
+  <book id="58339e95d530e">
+    <author>Randall, Cynthia</author>
+    <title>Lover Birds</title>
+    <genre>Romance</genre>
+    <price>4.95</price>
+    <published>967867200</published>
+    <description>When Carla meets Paul at an ornithology conference, tempers fly as feathers get ruffled.</description>
+  </book>
+</catalog>
+```
+
+### Construct XML document using xpaths
+
+```php
+<?php
+use Chadicus\Util;
+
+$document = new DOMDocument();
+$document->formatOutput = true;
+Util\DOMDocument::addXPath($document, "/catalog/book[@id='58339e95d530e']/title", 'Lover Birds');
+Util\DOMDocument::addXPath($document, '/catalog/book[@id="58339e95d530e"]/price', 4.95);
+Util\DOMDocument::addXPath($document, '/catalog/book[@id="58339e95d52d9"]/title', 'The Sundered Grail');
+Util\DOMDocument::addXPath($document, '/catalog/book[@id="58339e95d52d9"]/genre', 'Fantasy');
+echo $document->saveXml();
+```
+#### Output
+```
+<?xml version="1.0"?>
+<catalog>
+  <book id="58339e95d530e">
+    <title>Lover Birds</title>
+    <price>4.95</price>
+  </book>
+  <book id="58339e95d52d9">
+    <title>The Sundered Grail</title>
+    <genre>Fantasy</genre>
+  </book>
+</catalog>
+```
