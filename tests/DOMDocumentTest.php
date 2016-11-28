@@ -246,4 +246,58 @@ XML;
 XML;
         $this->assertSame($expected, $document->saveXml());
     }
+
+    /**
+     * Verify behavior of addXPath() when xpath specifies attribute with value.
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathWithAttributeValue()
+    {
+        $xpath = "/root/parent[@attr='foo']/child";
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value');
+        $document->formatOutput = true;
+        $expected = <<<XML
+<?xml version="1.0"?>
+<root>
+  <parent attr="foo">
+    <child>value</child>
+  </parent>
+</root>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
+    /**
+     * Verify behavior of addXPath() when xpath specifies attribute with value and attribute exists.
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathWithAttributeValueExists()
+    {
+        $document = new \DOMDocument();
+        $document->loadXml('<root><parent attr="foo" /></root>');
+
+        $xpath = "/root/parent[@attr='foo']/child";
+        DOMDocument::addXPath($document, $xpath, 'value');
+        $document->formatOutput = true;
+        $expected = <<<XML
+<?xml version="1.0"?>
+<root>
+  <parent attr="foo">
+    <child>value</child>
+  </parent>
+</root>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
 }

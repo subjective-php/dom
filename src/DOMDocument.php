@@ -79,31 +79,55 @@ abstract class DOMDocument
      *
      * @param \DOMXPath $domXPath The DOMXPath object built using the owner document.
      * @param \DOMNode  $context  The node to which the new elements will be added.
-     * @param string    $tagName  The tag name of the element.
+     * @param string    $fragment The tag name of the element.
      *
      * @return \DOMElement|\DOMAttr The DOMNode that was created.
      */
-    final private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, $tagName)
+    final private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, $fragment)
     {
         $document = $domXPath->document;
 
-        if ($tagName[0] === '@') {
-            $attribute = $document->createAttribute(substr($tagName, 1));
-            $context->appendChild($attribute);
+        if ($fragment[0] === '@') {
+            $attributeName = substr($fragment, 1);
+            $attribute = $context->attributes->getNamedItem($attributeName);
+            if ($attribute === null) {
+                $attribute = $document->createAttribute($attributeName);
+                $context->appendChild($attribute);
+            }
+
             return $attribute;
         }
 
         $matches = [];
-        if (preg_match('/^(?P<parent>[a-z][\w0-9-]*)\[(?P<child>[a-z][\w0-9-]*)\s*=\s*"(?P<value>.*)"\]$/i', $tagName, $matches)) {
-            $parent = $document->createElement($matches['parent']);
+
+        //match fragment with comparision operator (ex parent[child="foo"])
+        $pattern = '^(?P<parent>[a-z][\w0-9-]*)\[(?P<child>[a-z@][\w0-9-]*)\s*=\s*["\'](?P<value>.*)[\'"]\]$';
+        if (preg_match("/{$pattern}/i", $fragment, $matches)) {
+            //Find or create the parent node
+            $list = $domXPath->query($fragment, $context);
+            $parent = $list->length ? $list->item(0) : $document->createElement($matches['parent']);
+            //If child is an attribute, create and append. Attributes are overwritten if they exist
+            if ($matches['child'][0] == '@') {
+                $attribute = $document->createAttribute(substr($matches['child'], 1));
+                $attribute->value = $matches['value'];
+                $parent->appendChild($attribute);
+                $context->appendChild($parent);
+                return $parent;
+            }
+
+            //Assume child does not exist
             $parent->appendChild($document->createElement($matches['child'], $matches['value']));
             $context->appendChild($parent);
             return $parent;
         }
 
+        //If the fragment did not match the above pattern, then assume it is
+        //either '/parent/child  or /parent/child[n] Where n is the nth occurence of the child node
         $matches = [];
-        preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $tagName, $matches);
-        $matches += ['count' => 1, 'name' => $tagName];
+        preg_match('/^(?P<name>[a-z][\w0-9-]*)\[(?P<count>\d+)\]$/i', $fragment, $matches);
+        //default count and name if pattern doesn't match.
+        //There may be another pattern that I'm missing and should account for
+        $matches += ['count' => 1, 'name' => $fragment];
 
         $count = $matches['count'];
         $tagName = $matches['name'];
