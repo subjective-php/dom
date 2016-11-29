@@ -248,6 +248,34 @@ XML;
     }
 
     /**
+     * Verify behavior of addXPath() when xpath specifies the numeric index that exists.
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathWithExistingNumericIndex()
+    {
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, '/root/parent/child[3]', 'value 3');
+        DOMDocument::addXPath($document, '/root/parent/child[2]', 'value 2');
+        $document->formatOutput = true;
+        $expected = <<<XML
+<?xml version="1.0"?>
+<root>
+  <parent>
+    <child/>
+    <child>value 2</child>
+    <child>value 3</child>
+  </parent>
+</root>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
+    /**
      * Verify behavior of addXPath() when xpath specifies attribute with value.
      *
      * @test
