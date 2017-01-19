@@ -71,7 +71,9 @@ abstract class DOMDocument
             $pointer = self::parseFragment($domXPath, $pointer, $tagName);
         }
 
-        $pointer->nodeValue = $value;
+        if ($value !== null) {
+            $pointer->nodeValue = htmlentities($value, ENT_XML1, $document->encoding, false);
+        }
     }
 
     /**
