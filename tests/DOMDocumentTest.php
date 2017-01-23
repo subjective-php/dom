@@ -328,4 +328,32 @@ XML;
 XML;
         $this->assertSame($expected, $document->saveXml());
     }
+
+    /**
+     * Verify value is encoding when calling addXPath().
+     *
+     * @test
+     * @covers ::addXPath
+     *
+     * @return void
+     */
+    public function addXPathEncodesValue()
+    {
+        $document = new \DOMDocument();
+        $document->loadXml('<root><parent /></root>');
+
+        $xpath = "/root/parent/child";
+        DOMDocument::addXPath($document, $xpath, 'this & that');
+        $document->formatOutput = true;
+        $expected = <<<XML
+<?xml version="1.0"?>
+<root>
+  <parent>
+    <child>this &amp; that</child>
+  </parent>
+</root>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
 }
