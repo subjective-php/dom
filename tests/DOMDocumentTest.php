@@ -2,6 +2,7 @@
 namespace ChadicusTest\DOM;
 
 use Chadicus\Util\DOMDocument;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for the \Chadicus\Util\DOMDocument class.
@@ -9,7 +10,7 @@ use Chadicus\Util\DOMDocument;
  * @coversDefaultClass \Chadicus\Util\DOMDocument
  * @covers ::<private>
  */
-final class DOMDocumentTest extends \PHPUnit_Framework_TestCase
+final class DOMDocumentTest extends TestCase
 {
     /**
      * Verify basic behavior of fromArray().
