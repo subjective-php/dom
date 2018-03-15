@@ -13,5 +13,5 @@ matrix:
      - php: nightly
 before_script:
   - composer update $PREFER_LOWEST
-script: ./vendor/bin/phpunit --coverage-clover clover.xml
+script: ./vendor/bin/phpunit
 after_success: ./vendor/bin/coveralls -v
