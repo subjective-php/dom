@@ -189,7 +189,10 @@ XML;
         DOMDocument::addXPath($document, $xpath, 'value');
         $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>value</node></to></path>\n", $document->saveXml());
         DOMDocument::addXPath($document, $xpath, 'new value');
-        $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>new value</node></to></path>\n", $document->saveXml());
+        $this->assertSame(
+            "<?xml version=\"1.0\"?>\n<path><to><node>new value</node></to></path>\n",
+            $document->saveXml()
+        );
     }
 
     /**

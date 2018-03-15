@@ -221,12 +221,7 @@ abstract class DOMDocument
     {
         $result = [];
         foreach ($array as $key => $value) {
-            if (is_int($key)) {
-                $newKey = (substr($prefix, -1) == ']') ? $prefix : "{$prefix}[" . (++$key) . ']';
-            } else {
-                $newKey = $prefix . (empty($prefix) ? '' : '/') . $key;
-            }
-
+            $newKey = self::getNewKey($key, $prefix);
             if (is_array($value)) {
                 $result = array_merge($result, self::flatten($value, $newKey));
                 continue;
@@ -236,5 +231,14 @@ abstract class DOMDocument
         }
 
         return $result;
+    }
+
+    final private static function getNewKey(&$key, string $prefix) : string
+    {
+        if (is_int($key)) {
+            return (substr($prefix, -1) == ']') ? $prefix : "{$prefix}[" . (++$key) . ']';
+        }
+
+        return $prefix . (empty($prefix) ? '' : '/') . $key;
     }
 }
