@@ -53,7 +53,7 @@ abstract class DOMDocument
      *
      * @throws \DOMException Thrown if the given $xpath is not valid.
      */
-    final public static function addXPath(\DOMDocument $document, $xpath, $value = null)
+    final public static function addXPath(\DOMDocument $document, string $xpath, $value = null)
     {
         $domXPath = new \DOMXPath($document);
         $list = @$domXPath->query($xpath);
@@ -85,7 +85,7 @@ abstract class DOMDocument
      *
      * @return \DOMElement|\DOMAttr The DOMNode that was created.
      */
-    final private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, $fragment)
+    final private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, string $fragment)
     {
         $document = $domXPath->document;
 
@@ -150,7 +150,7 @@ abstract class DOMDocument
      *
      * @return void
      */
-    final private static function addMultiple(\DOMDocument $document, \DOMNode $context, $tagName, $limit)
+    final private static function addMultiple(\DOMDocument $document, \DOMNode $context, string $tagName, int $limit)
     {
         for ($i = 0; $i < $limit; $i++) {
             $context->appendChild($document->createElement($tagName));
@@ -166,7 +166,7 @@ abstract class DOMDocument
      *
      * @return void
      */
-    final private static function pathToArray(array &$array, $path, $value = null)
+    final private static function pathToArray(array &$array, string $path, $value = null)
     {
         $path = str_replace(['[', ']'], ['/', ''], $path);
         $parts = array_filter(explode('/', $path));
@@ -195,7 +195,7 @@ abstract class DOMDocument
      *
      * @return void
      */
-    final private static function arrayize(array &$array, $key)
+    final private static function arrayize(array &$array, string $key)
     {
         if (!array_key_exists($key, $array)) {
             //key does not exist, set to empty array and return
@@ -217,16 +217,11 @@ abstract class DOMDocument
      *
      * @return array
      */
-    final private static function flatten(array $array, $prefix = '')
+    final private static function flatten(array $array, string $prefix = '')
     {
         $result = [];
         foreach ($array as $key => $value) {
-            if (is_int($key)) {
-                $newKey = (substr($prefix, -1) == ']') ? $prefix : "{$prefix}[" . (++$key) . ']';
-            } else {
-                $newKey = $prefix . (empty($prefix) ? '' : '/') . $key;
-            }
-
+            $newKey = self::getNewKey($key, $prefix);
             if (is_array($value)) {
                 $result = array_merge($result, self::flatten($value, $newKey));
                 continue;
@@ -236,5 +231,14 @@ abstract class DOMDocument
         }
 
         return $result;
+    }
+
+    final private static function getNewKey(&$key, string $prefix) : string
+    {
+        if (is_int($key)) {
+            return (substr($prefix, -1) == ']') ? $prefix : "{$prefix}[" . (++$key) . ']';
+        }
+
+        return $prefix . (empty($prefix) ? '' : '/') . $key;
     }
 }

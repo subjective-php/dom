@@ -2,6 +2,7 @@
 namespace ChadicusTest\DOM;
 
 use Chadicus\Util\DOMDocument;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for the \Chadicus\Util\DOMDocument class.
@@ -9,7 +10,7 @@ use Chadicus\Util\DOMDocument;
  * @coversDefaultClass \Chadicus\Util\DOMDocument
  * @covers ::<private>
  */
-final class DOMDocumentTest extends \PHPUnit_Framework_TestCase
+final class DOMDocumentTest extends TestCase
 {
     /**
      * Verify basic behavior of fromArray().
@@ -189,7 +190,10 @@ XML;
         DOMDocument::addXPath($document, $xpath, 'value');
         $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>value</node></to></path>\n", $document->saveXml());
         DOMDocument::addXPath($document, $xpath, 'new value');
-        $this->assertSame("<?xml version=\"1.0\"?>\n<path><to><node>new value</node></to></path>\n", $document->saveXml());
+        $this->assertSame(
+            "<?xml version=\"1.0\"?>\n<path><to><node>new value</node></to></path>\n",
+            $document->saveXml()
+        );
     }
 
     /**

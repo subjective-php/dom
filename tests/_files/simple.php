@@ -22,7 +22,8 @@ return array (
         'genre' => 'Fantasy',
         'price' => '5.95',
         'publish_date' => '2000-12-16',
-        'description' => 'A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.',
+        'description' => 'A former architect battles corporate zombies, an evil sorceress, and her own childhood to'
+        . ' become queen of the world.',
       ),
       2 =>
       array (
@@ -32,7 +33,8 @@ return array (
         'genre' => 'Fantasy',
         'price' => '5.95',
         'publish_date' => '2000-11-17',
-        'description' => 'After the collapse of a nanotechnology society in England, the young survivors lay the foundation for a new society.',
+        'description' => 'After the collapse of a nanotechnology society in England, the young survivors lay the'
+        . ' foundation for a new society.',
       ),
     ),
   ),
