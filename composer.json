@@ -2,14 +2,6 @@
     "name": "chadicus/dom",
     "description": "Collection of utility classes to work with DOMDocument",
     "keywords": ["xml", "dom", "domdocument"],
-    "authors": [
-        {
-            "name": "Chad Gray",
-            "email": "chadwickgray@gmail.com",
-            "homepage": "http://chadicus.org",
-            "role": "Developer"
-        }
-    ],
     "license": "MIT",
     "config": {
         "sort-packages": true
