@@ -1,4 +1,4 @@
-# Chadicus\DOM
+# SubjectivePHP\DOM
 
 [![Build Status](https://travis-ci.org/subjective-php/dom-php.svg?branch=master)](https://travis-ci.org/subjective-php/dom-php)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/subjective-php/dom-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/subjective-php/dom-php/?branch=master)
@@ -46,7 +46,7 @@ composer install
 ### Convert an xml document to an array
 ```php
 <?php
-use Chadicus\Util;
+use SubjectivePHP\Util;
 
 $xml = <<<XML
 <?xml version="1.0"?>
@@ -113,7 +113,7 @@ array (
 ### Convert an array to XML
 ```php
 <?php
-use Chadicus\Util;
+use SubjectivePHP\Util;
 
 $catalog = [
     'book' => [
@@ -170,7 +170,7 @@ echo $document->saveXml();
 
 ```php
 <?php
-use Chadicus\Util;
+use SubjectivePHP\Util;
 
 $document = new DOMDocument();
 $document->formatOutput = true;
