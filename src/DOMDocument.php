@@ -1,6 +1,6 @@
 <?php
 
-namespace Chadicus\Util;
+namespace SubjectivePHP\Util;
 
 /**
  * Static helper class for working with \DOM objects.

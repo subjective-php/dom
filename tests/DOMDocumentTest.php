@@ -1,13 +1,13 @@
 <?php
-namespace ChadicusTest\DOM;
+namespace SubjectivePHPTest\DOM;
 
-use Chadicus\Util\DOMDocument;
+use SubjectivePHP\Util\DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Unit tests for the \Chadicus\Util\DOMDocument class.
+ * Unit tests for the \SubjectivePHP\Util\DOMDocument class.
  *
- * @coversDefaultClass \Chadicus\Util\DOMDocument
+ * @coversDefaultClass \SubjectivePHP\Util\DOMDocument
  * @covers ::<private>
  */
 final class DOMDocumentTest extends TestCase

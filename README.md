@@ -1,38 +1,38 @@
-# Chadicus\DOM
+# SubjectivePHP\DOM
 
-[![Build Status](https://travis-ci.org/chadicus/dom-php.svg?branch=master)](https://travis-ci.org/chadicus/dom-php)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chadicus/dom-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadicus/dom-php/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/chadicus/dom-php/badge.svg?branch=master)](https://coveralls.io/github/chadicus/dom-php?branch=master)
+[![Build Status](https://travis-ci.org/subjective-php/dom-php.svg?branch=master)](https://travis-ci.org/subjective-php/dom-php)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/subjective-php/dom-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/subjective-php/dom-php/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/subjective-php/dom-php/badge.svg?branch=master)](https://coveralls.io/github/subjective-php/dom-php?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001)
 
-[![Latest Stable Version](https://poser.pugx.org/chadicus/dom/v/stable)](https://packagist.org/packages/chadicus/dom)
-[![Latest Unstable Version](https://poser.pugx.org/chadicus/dom/v/unstable)](https://packagist.org/packages/chadicus/dom)
-[![License](https://poser.pugx.org/chadicus/dom/license)](https://packagist.org/packages/chadicus/dom)
+[![Latest Stable Version](https://poser.pugx.org/subjective-php/dom/v/stable)](https://packagist.org/packages/subjective-php/dom)
+[![Latest Unstable Version](https://poser.pugx.org/subjective-php/dom/v/unstable)](https://packagist.org/packages/subjective-php/dom)
+[![License](https://poser.pugx.org/subjective-php/dom/license)](https://packagist.org/packages/subjective-php/dom)
 
-[![Total Downloads](https://poser.pugx.org/chadicus/dom/downloads)](https://packagist.org/packages/chadicus/dom)
-[![Monthly Downloads](https://poser.pugx.org/chadicus/dom/d/monthly)](https://packagist.org/packages/chadicus/dom)
-[![Daily Downloads](https://poser.pugx.org/chadicus/dom/d/daily)](https://packagist.org/packages/chadicus/dom)
+[![Total Downloads](https://poser.pugx.org/subjective-php/dom/downloads)](https://packagist.org/packages/subjective-php/dom)
+[![Monthly Downloads](https://poser.pugx.org/subjective-php/dom/d/monthly)](https://packagist.org/packages/subjective-php/dom)
+[![Daily Downloads](https://poser.pugx.org/subjective-php/dom/d/daily)](https://packagist.org/packages/subjective-php/dom)
 
-[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://www.pholiophp.org/chadicus/dom)
+[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://www.pholiophp.org/subjective-php/dom)
 
 A collection of utility classes to work with PHP DOM Objects
 
 ## Requirements
 
-chadicus\dom requires PHP 5.6 (or later).
+subjective-php\dom requires PHP 7.0 (or later).
 
 ##Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
-`chadicus/dom` to your project's `composer.json` file such as:
+`subjective-php/dom` to your project's `composer.json` file such as:
 
 ```sh
-composer require chadicus/dom
+composer require subjective-php/dom
 ```
 ##Contact
 Developers may be contacted at:
 
- * [Pull Requests](https://github.com/chadicus/dom-php/pulls)
- * [Issues](https://github.com/chadicus/dom-php/issues)
+ * [Pull Requests](https://github.com/subjective-php/dom-php/pulls)
+ * [Issues](https://github.com/subjective-php/dom-php/issues)
 
 ##Run Unit Tests
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
@@ -46,7 +46,7 @@ composer install
 ### Convert an xml document to an array
 ```php
 <?php
-use Chadicus\Util;
+use SubjectivePHP\Util;
 
 $xml = <<<XML
 <?xml version="1.0"?>
@@ -113,7 +113,7 @@ array (
 ### Convert an array to XML
 ```php
 <?php
-use Chadicus\Util;
+use SubjectivePHP\Util;
 
 $catalog = [
     'book' => [
@@ -170,7 +170,7 @@ echo $document->saveXml();
 
 ```php
 <?php
-use Chadicus\Util;
+use SubjectivePHP\Util;
 
 $document = new DOMDocument();
 $document->formatOutput = true;
