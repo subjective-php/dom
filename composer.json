@@ -1,5 +1,5 @@
 {
-    "name": "chadicus/dom",
+    "name": "subjective-php/dom",
     "description": "Collection of utility classes to work with DOMDocument",
     "keywords": ["xml", "dom", "domdocument"],
     "license": "MIT",
