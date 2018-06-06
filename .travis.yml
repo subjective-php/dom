@@ -14,4 +14,4 @@ matrix:
 before_script:
   - composer update $PREFER_LOWEST
 script: ./vendor/bin/phpunit
-after_success: ./vendor/bin/coveralls -v
+after_success: ./vendor/bin/php-coveralls -v
