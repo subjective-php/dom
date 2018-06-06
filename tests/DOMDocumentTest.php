@@ -31,6 +31,20 @@ final class DOMDocumentTest extends TestCase
     }
 
     /**
+     * @test
+     * @covers ::fromArray
+     */
+    public function fromArrayUseCdata()
+    {
+        $document = DOMDocument::fromArray(include __DIR__ . '/_files/simple.php', ['use_cdata' => true]);
+        $document->formatOutput = true;
+        $this->assertSame(
+            file_get_contents(__DIR__ . '/_files/simple_cdata.xml'),
+            $document->saveXml()
+        );
+    }
+
+    /**
      * Verify behavior of fromArray() with a more complex structure.
      *
      * @test

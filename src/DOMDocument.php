@@ -14,11 +14,11 @@ abstract class DOMDocument
      *
      * @return \DOMDocument
      */
-    final public static function fromArray(array $array)
+    final public static function fromArray(array $array, array $options = [])
     {
         $document = new \DOMDocument();
         foreach (self::flatten($array) as $path => $value) {
-            self::addXPath($document, $path, $value);
+            self::addXPath($document, $path, $value, $options['use_cdata'] ?? false);
         }
 
         return $document;
@@ -53,7 +53,7 @@ abstract class DOMDocument
      *
      * @throws \DOMException Thrown if the given $xpath is not valid.
      */
-    final public static function addXPath(\DOMDocument $document, string $xpath, $value = null)
+    final public static function addXPath(\DOMDocument $document, string $xpath, $value = null, bool $useCdata = false)
     {
         $domXPath = new \DOMXPath($document);
         $list = @$domXPath->query($xpath);
@@ -71,9 +71,18 @@ abstract class DOMDocument
             $pointer = self::parseFragment($domXPath, $pointer, $tagName);
         }
 
-        if ($value !== null) {
-            $pointer->nodeValue = htmlentities($value, ENT_XML1, $document->encoding, false);
+        if ($value === null) {
+            return;
         }
+
+        if (is_a($pointer, \DOMAttr::class) || !$useCdata) {
+            $pointer->nodeValue = htmlentities($value, ENT_XML1, $document->encoding, false);
+            return;
+        }
+
+        $pointer->appendChild(
+           $pointer->ownerDocument->createCDATASection($value)
+        );
     }
 
     /**

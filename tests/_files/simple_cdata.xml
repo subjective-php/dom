@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<catalog>
+  <book id="bk101">
+    <author><![CDATA[Gambardella, Matthew]]></author>
+    <title><![CDATA[XML Developer's Guide]]></title>
+    <genre><![CDATA[Computer]]></genre>
+    <price><![CDATA[44.95]]></price>
+    <publish_date><![CDATA[2000-10-01]]></publish_date>
+    <description><![CDATA[An in-depth look at creating applications with XML.]]></description>
+  </book>
+  <book id="bk102">
+    <author><![CDATA[Ralls, Kim]]></author>
+    <title><![CDATA[Midnight Rain]]></title>
+    <genre><![CDATA[Fantasy]]></genre>
+    <price><![CDATA[5.95]]></price>
+    <publish_date><![CDATA[2000-12-16]]></publish_date>
+    <description><![CDATA[A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.]]></description>
+  </book>
+  <book id="bk103">
+    <author><![CDATA[Corets, Eva]]></author>
+    <title><![CDATA[Maeve Ascendant]]></title>
+    <genre><![CDATA[Fantasy]]></genre>
+    <price><![CDATA[5.95]]></price>
+    <publish_date><![CDATA[2000-11-17]]></publish_date>
+    <description><![CDATA[After the collapse of a nanotechnology society in England, the young survivors lay the foundation for a new society.]]></description>
+  </book>
+</catalog>
