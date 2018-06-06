@@ -169,6 +169,23 @@ XML;
     }
 
     /**
+     * @test
+     * @covers ::addXPath
+     */
+    public function addXPathIgnoresCDataWitAttribute()
+    {
+        $xpath = '/path/to/node/with/@attribute';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value', true);
+        $expected = <<<XML
+<?xml version="1.0"?>
+<path><to><node><with attribute="value"/></node></to></path>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
+    /**
      * Verify basic behavior of addXPath().
      *
      * @test
@@ -184,6 +201,23 @@ XML;
         $expected = <<<XML
 <?xml version="1.0"?>
 <path><to><node>value</node></to></path>
+
+XML;
+        $this->assertSame($expected, $document->saveXml());
+    }
+
+    /**
+     * @test
+     * @covers ::addXPath
+     */
+    public function addXPathWithCData()
+    {
+        $xpath = '/path/to/node';
+        $document = new \DOMDocument();
+        DOMDocument::addXPath($document, $xpath, 'value', true);
+        $expected = <<<XML
+<?xml version="1.0"?>
+<path><to><node><![CDATA[value]]></node></to></path>
 
 XML;
         $this->assertSame($expected, $document->saveXml());
