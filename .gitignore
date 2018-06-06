@@ -3,3 +3,4 @@
 clover.xml
 composer.lock
 phpunit.xml
+phpcs.xml

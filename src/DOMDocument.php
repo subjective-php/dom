@@ -81,7 +81,7 @@ abstract class DOMDocument
         }
 
         $pointer->appendChild(
-           $pointer->ownerDocument->createCDATASection($value)
+            $pointer->ownerDocument->createCDATASection($value)
         );
     }
 
