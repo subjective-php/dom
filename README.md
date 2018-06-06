@@ -1,8 +1,8 @@
 # SubjectivePHP\DOM
 
-[![Build Status](https://travis-ci.org/subjective-php/dom-php.svg?branch=master)](https://travis-ci.org/subjective-php/dom-php)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/subjective-php/dom-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/subjective-php/dom-php/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/subjective-php/dom-php/badge.svg?branch=master)](https://coveralls.io/github/subjective-php/dom-php?branch=master)
+[![Build Status](https://travis-ci.org/subjective-php/dom.svg?branch=master)](https://travis-ci.org/subjective-php/dom)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/subjective-php/dom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/subjective-php/dom/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/subjective-php/dom/badge.svg?branch=master)](https://coveralls.io/github/subjective-php/dom?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/subjective-php/dom/v/stable)](https://packagist.org/packages/subjective-php/dom)
 [![Latest Unstable Version](https://poser.pugx.org/subjective-php/dom/v/unstable)](https://packagist.org/packages/subjective-php/dom)
@@ -30,8 +30,8 @@ composer require subjective-php/dom
 ##Contact
 Developers may be contacted at:
 
- * [Pull Requests](https://github.com/subjective-php/dom-php/pulls)
- * [Issues](https://github.com/subjective-php/dom-php/issues)
+ * [Pull Requests](https://github.com/subjective-php/dom/pulls)
+ * [Issues](https://github.com/subjective-php/dom/issues)
 
 ##Run Unit Tests
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
