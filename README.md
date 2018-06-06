@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/subjective-php/dom-php.svg?branch=master)](https://travis-ci.org/subjective-php/dom-php)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/subjective-php/dom-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/subjective-php/dom-php/?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/subjective-php/dom-php/badge.svg?branch=master)](https://coveralls.io/github/subjective-php/dom-php?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/55fdfd99601dd9001f000001)
 
 [![Latest Stable Version](https://poser.pugx.org/subjective-php/dom/v/stable)](https://packagist.org/packages/subjective-php/dom)
 [![Latest Unstable Version](https://poser.pugx.org/subjective-php/dom/v/unstable)](https://packagist.org/packages/subjective-php/dom)
