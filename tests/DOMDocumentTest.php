@@ -67,13 +67,11 @@ final class DOMDocumentTest extends TestCase
      *
      * @test
      * @covers ::addXPath
-     * @expectedException \DOMException
-     * @expectedExceptionMessage XPath [1]/foo is not valid.
-     *
-     * @return void
      */
     public function addXPathInvalidExpression()
     {
+        $this->expectExceptionMessage("XPath [1]/foo is not valid.");
+        $this->expectException(\DOMException::class);
         DOMDocument::addXPath(new \DOMDocument(), '[1]/foo');
     }
 

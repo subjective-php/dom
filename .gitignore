@@ -4,3 +4,10 @@ clover.xml
 composer.lock
 phpunit.xml
 phpcs.xml
+.*
+!.github
+!.coveralls.yml
+!.travis.yml
+!.scrutinizer.yml
+!.gitattributes
+!.gitignore
