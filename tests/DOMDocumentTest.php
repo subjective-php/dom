@@ -1,12 +1,11 @@
 <?php
 namespace SubjectivePHPTest\DOM;
 
+use DOMException;
 use SubjectivePHP\Util\DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Unit tests for the \SubjectivePHP\Util\DOMDocument class.
- *
  * @coversDefaultClass \SubjectivePHP\Util\DOMDocument
  * @covers ::<private>
  */
@@ -67,13 +66,13 @@ final class DOMDocumentTest extends TestCase
      *
      * @test
      * @covers ::addXPath
-     * @expectedException \DOMException
-     * @expectedExceptionMessage XPath [1]/foo is not valid.
      *
      * @return void
      */
     public function addXPathInvalidExpression()
     {
+        $this->expectException(DOMException::class);
+        $this->expectExceptionMessage('XPath [1]/foo is not valid');
         DOMDocument::addXPath(new \DOMDocument(), '[1]/foo');
     }
 
