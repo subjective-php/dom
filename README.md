@@ -1,9 +1,5 @@
 # SubjectivePHP\DOM
 
-[![Build Status](https://travis-ci.org/subjective-php/dom.svg?branch=master)](https://travis-ci.org/subjective-php/dom)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/subjective-php/dom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/subjective-php/dom/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/subjective-php/dom/badge.svg?branch=master)](https://coveralls.io/github/subjective-php/dom?branch=master)
-
 [![Latest Stable Version](https://poser.pugx.org/subjective-php/dom/v/stable)](https://packagist.org/packages/subjective-php/dom)
 [![Latest Unstable Version](https://poser.pugx.org/subjective-php/dom/v/unstable)](https://packagist.org/packages/subjective-php/dom)
 [![License](https://poser.pugx.org/subjective-php/dom/license)](https://packagist.org/packages/subjective-php/dom)
