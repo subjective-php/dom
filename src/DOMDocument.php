@@ -94,7 +94,7 @@ abstract class DOMDocument
      *
      * @return \DOMElement|\DOMAttr The DOMNode that was created.
      */
-    final private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, string $fragment)
+    private static function parseFragment(\DOMXPath $domXPath, \DOMNode $context, string $fragment)
     {
         $document = $domXPath->document;
 
@@ -159,7 +159,7 @@ abstract class DOMDocument
      *
      * @return void
      */
-    final private static function addMultiple(\DOMDocument $document, \DOMNode $context, string $tagName, int $limit)
+    private static function addMultiple(\DOMDocument $document, \DOMNode $context, string $tagName, int $limit)
     {
         for ($i = 0; $i < $limit; $i++) {
             $context->appendChild($document->createElement($tagName));
@@ -175,7 +175,7 @@ abstract class DOMDocument
      *
      * @return void
      */
-    final private static function pathToArray(array &$array, string $path, $value = null)
+    private static function pathToArray(array &$array, string $path, $value = null)
     {
         $path = str_replace(['[', ']'], ['/', ''], $path);
         $parts = array_filter(explode('/', $path));
@@ -204,7 +204,7 @@ abstract class DOMDocument
      *
      * @return void
      */
-    final private static function arrayize(array &$array, string $key)
+    private static function arrayize(array &$array, string $key)
     {
         if (!array_key_exists($key, $array)) {
             //key does not exist, set to empty array and return
@@ -226,7 +226,7 @@ abstract class DOMDocument
      *
      * @return array
      */
-    final private static function flatten(array $array, string $prefix = '')
+    private static function flatten(array $array, string $prefix = '')
     {
         $result = [];
         foreach ($array as $key => $value) {
@@ -242,7 +242,7 @@ abstract class DOMDocument
         return $result;
     }
 
-    final private static function getNewKey(&$key, string $prefix) : string
+    private static function getNewKey(&$key, string $prefix) : string
     {
         if (is_int($key)) {
             return (substr($prefix, -1) == ']') ? $prefix : "{$prefix}[" . (++$key) . ']';
